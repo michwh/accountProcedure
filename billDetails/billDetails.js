@@ -12,7 +12,7 @@ var vm=new Vue({
         isActive:false,
         username:'',
         mes:'',
-        user:'',
+       
         sTime:'',
         sPlace:'',
         sType:'',
@@ -22,29 +22,17 @@ var vm=new Vue({
         sRemark:'',
         sState:'',
         sStateNum:'', 
-        
+        searchList:[],
+        searchShow:false,
+        value:'time',
 		},
         created:function(){
        axios.get('../json/bill.json').then(
 
             function(response){
-                
-                mes=response.data.bills;
-                 user=response.data.ID;
-                 vm.username=user;
-                for(var i=0;i<mes.length;i++){
-                      vm.list.push({
-                        time:mes[i].time,
-                        place:mes[i].place,
-                        type:mes[i].type,
-                        user:mes[i].user,
-                        money:mes[i].money,
-                        purpose:mes[i].purpose,
-                        remark:mes[i].remark,
-                        state:mes[i].state, 
-                                               
-                      })
-                    }
+                               
+                 vm.username=response.data.ID;
+                 vm.list=response.data.bills;
                     
                     
                 },
@@ -58,9 +46,11 @@ var vm=new Vue({
             show:function(even){//选中下拉框不同的选项，文本框中会出现不同的提示
             	if(even.target.value=='time'){
                     this.tips='例 20161015';
+                    this.value=even.target.value;
             	}
             	if(even.target.value=='user'){
             		this.tips='例 李明';
+                    this.value=even.target.value;
             	}
             },
             disappearCue:function(){//点击文本框后，文本框里面的提示消失
@@ -77,7 +67,7 @@ var vm=new Vue({
             },
             saveMessage(){
                 
-
+              
                 vm.list.push({
                         time:this.sTime,
                         place:this.sPlace,
@@ -91,6 +81,47 @@ var vm=new Vue({
                       })
                 this.isActive=false;
             },
+            search(){
+                this.searchList=[];
+            if(this.value==='time'){ 
+                for(var i=0,len=this.list.length;i<len;i++){
+                    if(this.tips===this.list[i].time){
+                         vm.searchList.push({
+                        time:this.list[i].time,
+                        place:this.list[i].place,
+                        type:this.list[i].type,
+                        user:this.list[i].user,
+                        money:this.list[i].money,
+                        purpose:this.list[i].purpose,
+                        remark:this.list[i].remark,
+                        state:this.list[i].state, 
+                                               
+                      })
+                    }
+                }
+            }
+            if(this.value==='user'){
+                for(var i=0,len=this.list.length;i<len;i++){
+                    if(this.tips===this.list[i].user){
+                         vm.searchList.push({
+                        time:this.list[i].time,
+                        place:this.list[i].place,
+                        type:this.list[i].type,
+                        user:this.list[i].user,
+                        money:this.list[i].money,
+                        purpose:this.list[i].purpose,
+                        remark:this.list[i].remark,
+                        state:this.list[i].state, 
+                                               
+                      })
+                    }
+                }
+            }
+                
+              this.searchShow=true;
+
+            },
+            
 
 	    }//methods结束
     })//var vm=new Vue结束
