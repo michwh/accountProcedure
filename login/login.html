@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>login</title>
+	<script type="text/javascript" src="../public/vue.min.js"></script>
+  <script type="text/javascript" src="../public/axios.min.js"></script>
+  <script type="text/javascript" src="../public/vue-router.js"></script>
+  <script src="login.js" type="text/javascript"></script>
+  <link href="login.css" rel="stylesheet" >
+</head>
+<body>
+     <div class="main">
+        
+        <div class="select">
+            <ul>
+               <li @mouseover="playLogin()">登录</li>
+               <li @mouseover="playRegister()">注册</li>
+            </ul>
+        </div><!-- select结束 -->
 
+        <div class="login" v-if="login" >
+           <input type="text" placeholder="用户名" v-model="sID">
+           <input type="password" placeholder="密码" v-model="sPassword">
+           <input type="submit" value="登录" class="submit" @click="submit()">
+        </div><!-- login结束 -->
+
+        <div class="register" v-else >
+        <input type="text" placeholder="用户名" v-model="newID">
+        <input type="text" placeholder="电话">
+           <input type="password" placeholder="密码" v-model="newPassword">
+           <input type="submit" value="注册" class="submit2" @click="submit2()">
+        </div><!-- register结束 -->
+
+ 
+        
+
+     </div><!-- main结束 -->
+
+</body>
+</html>
