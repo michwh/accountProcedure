@@ -1,0 +1,16 @@
+{
+	"users":[
+       {
+       	"ID":"超级无敌管理员",
+       	"password":"cjwdgly"
+       },
+       {
+       	"ID":"超级无敌小辣鸡",
+       	"password":"cjwdxlj"
+       },
+       {
+       	"ID":"onthinice",
+       	"password":"onthinice"
+       }
+	]
+}
