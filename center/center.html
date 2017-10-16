@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<div class="all">
+	<meta charset="UTF-8">
+	<title>记账程序</title>
+	<script src="center.js" type="text/javascript"></script>
+	<link href="center.css" rel="stylesheet" >
+  <script src="../public/vue.min.js"></script>
+  <script type="text/javascript" src="../public/axios.min.js"></script>
+</head>
+<body>
+<div class="all">
+  <div class="nav"><!-- 导航部分 -->
+     <div class="nav-logo"><!-- 网站LOGO -->
+       <a class="logo" href="#">On thin ice</a>
+       
+     </div><!-- nav-logo结束 -->
+     <div class="nav-menu"><!-- 菜单 -->
+       <ul class="menu">
+         
+         <li><a href="../billDetails/billDetails.html">账单详情</a></li>
+         <li><a href="../administrator/administrator.html">管理员</a></li>
+         <li><a href="../center/center.html">个人中心</a></li>
+        </ul>
+     </div><!-- nav-menu结束 -->
+    
+     <div class="nav-else"><!-- 导航部分其他信息 -->
+       <a href="#">退出</a>
+       <p>{{user}}</p>
+       
+      </div><!-- nav-else结束 -->
+  </div><!-- nav结束 -->
 
+  <fieldset>
+                <legend>修改密码</legend><br>
+
+                
+                <label>原密码:</label><br>
+                <input type="password" class="oldPass" v-model="oldPass"><br><br>
+
+                <label>新密码:</label><br>
+                <input type="password" class="newPass1" v-model="newPass1"><br><br>
+
+                <label>确认新密码:</label><br>
+                <input type="password" class="newPass2" v-model="newPass2"><br><br>
+
+
+                
+                <input type="submit"  value="修改" class="submit" @click="submit()">
+</fieldset>
+  <div class="tail">
+     <p class="tail-text">designed by Wenhui Huang</p>
+  </div><!-- tail结束 -->
+  </div><!-- all结束 -->
+</body>
+</html>
