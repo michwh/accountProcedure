@@ -16,8 +16,7 @@ var vm=new Vue({
         user:'',
         isActive: false,
             selected: -1,
-         allBill:true,
-         unfinishedBill:false, 
+         allShow:true,
         sTime:'',
         sPlace:'',
         sType:'',
@@ -26,7 +25,12 @@ var vm=new Vue({
         sPurpose:'',
         sRemark:'',
         sState:'',
-        sStateNum:'',  
+        sStateNum:'', 
+        types:[
+           '所有账单',
+           '未清账单',
+        ],
+        value:'time',
         
     },//data结束
     created:function(){
@@ -48,7 +52,8 @@ var vm=new Vue({
                         purpose:mes[i].purpose,
                         remark:mes[i].remark,
                         state:mes[i].state, 
-                        stateNum:0,                       
+                        stateNum:0, 
+                        search:true,                      
                       })
                     }
                     if(mes[i].state=="清账"){
@@ -61,7 +66,8 @@ var vm=new Vue({
                         purpose:mes[i].purpose,
                         remark:mes[i].remark,
                         state:mes[i].state, 
-                        stateNum:1,                       
+                        stateNum:1, 
+                        search:true,                      
                       })
                     }
                 }
@@ -77,21 +83,22 @@ var vm=new Vue({
        show:function(even){//选中下拉框不同的选项，文本框中会出现不同的提示
                 if(even.target.value=='time'){
                     this.tips='例 20161015';
+                    this.value=even.target.value
                 }
                 if(even.target.value=='user'){
                     this.tips='例 李明';
+                    this.value=even.target.value
                 }
             },
             disappearCue:function(){//点击文本框后，文本框里面的提示消失
                 this.tips='';
             },
             showUnfinished(){//显示未清账单
-                this.allBill=false;
-                this.unfinishedBill=true;
+                this.allShow=false;
+                alert(this.allShow);
             },
             showAll(){//显示所有账单
-                this.allBill=true;
-                this.unfinishedBill=false;
+                this.allShow=true;
             },
             showOverlay:function(index) {
                 this.selected=index;
@@ -137,13 +144,43 @@ var vm=new Vue({
                 this.list[this.selected].stateNum=this.sStateNum;
                 this.isActive=false;
                 
-        }//saveMessage()结束
+        },//saveMessage()结束
+        showType(event){
+
+            if(event.target.value==='所有账单'){
+                this.allShow=true;
+            }
+            if(event.target.value==='未清账单'){
+                this.allShow=false;
+            }
+            
+        },
+        search(){
+            if(this.value==='time'){
+                for(var i=0,len=this.list.length;i<len;i++){
+                    if(this.tips===this.list[i].time){
+                          this.list[i].search=true;
+                    }
+                    else{
+                        this.list[i].search=false;
+                    }
+                }
+            }
+            if(this.value==='user'){
+
+                for(var i=0,len=this.list.length;i<len;i++){
+                    if(this.tips===this.list[i].user){
+                          this.list[i].search=true;
+                    }
+                    else{
+                        this.list[i].search=false;
+                    }
+                }
+            }
+        }
     }//methods结束
     
 })//var vm=new Vue结束
-
-
-
 
 
 }

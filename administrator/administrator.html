@@ -32,14 +32,14 @@
     <div class="nav-search"><!-- 搜索框 -->
          <div class="nav-search-select">
            <select @change="show($event)">
-            <option v-for="option in options" v-bind:value="option.value" >{{ option.text }}</option>
+            <option v-for="option in options" :value="option.value" >{{ option.text }}</option>
            </select>
          </div><!-- nav-search-select结束 -->
          <div class="nav-search-text">
-            <input type="text" :value="tips" @click="disappearCue()">
+            <input type="text"  @click="disappearCue()" v-model="tips">
          </div>
          <div class="nav-search-button">
-             <input type="submit" value="">
+             <input type="submit" value="" @click="search()">
          </div>
     </div><!-- nav-search结束 -->
      
@@ -47,14 +47,13 @@
   </div><!-- nav结束 -->
 
     <div class="administrator-select">
-           <select >
-            <option value="all" @click="showAll()">所有账单</option>
-            <option value="unfinished" @click="showUnfinished()">未清账单</option>
+           <select @change="showType($event)" >
+            <option v-for="type of types" :value="type">{{type}}</option>
            </select>
     </div><!-- nav-search-select结束 -->
   
     
-      <table align="center" class="table" v-show="allBill">
+      <table align="center" class="table" >
                 <tr>
                     <th>时间</th>
                     <th>地点</th>
@@ -68,7 +67,7 @@
                     <th>操作</th>
                     
                 </tr>
-                <tr v-cloak v-for="(lis,index) of list" align="center">
+                <tr v-cloak v-for="(lis,index) of list" align="center" v-if="allShow" v-show="lis.search===true">
                     <td>{{lis.time}}</td>
                     <td>{{lis.place}}</td>
                     <td>{{lis.type}}</td>
@@ -80,20 +79,8 @@
                     
                     <td><input type="button" value="编辑" class="table-button-edit" @click="showOverlay(index)">| <input type="button" value="删除" class="table-button-delete" @click="del(index)"></td>
                 </tr>
-        </table> 
-        <table align="center" class="table" v-show="unfinishedBill">
-                <tr>
-                    <th>时间</th>
-                    <th>地点</th>
-                    <th>类型</th>
-                    <th>使用人</th>
-                    <th>金额</th>
-                    <th>用途</th>
-                    <th>备注</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>     
-                <tr v-cloak v-for="(lis,index) of list" align="center" v-if="lis.stateNum===0">
+
+                <tr v-cloak v-for="(lis,index) of list" align="center" v-show="lis.stateNum===0" v-if="!allShow">
                     <td >{{lis.time}}</td>
                     <td >{{lis.place}}</td>
                     <td>{{lis.type}}</td>
@@ -104,7 +91,10 @@
                     <td >{{lis.state}}</td>
                     <td ><input type="button" value="编辑" class="table-button-edit" @click="showOverlay(index)">| <input type="button" value="删除" class="table-button-delete" @click="del(index)"></td>
                 </tr>
-      </table>
+
+
+        </table> 
+        
     
  <div class="overlay" v-show="isActive">
                         <div class="con">
